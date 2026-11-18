@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>App name</title>
+<meta name="description" content="One sentence about what this app does.">
+<meta name="theme-color" content="#f4efe6">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="App name">
+<style>
+/* No web fonts by default: the phone's own fonts look fine in every language.
+   If the app needs one, put the woff2 in fonts/ (never Google Fonts or a CDN). */
+:root{--bg:#f4efe6;--card:#fffdf8;--ink:#23201c;--soft:#5f574e;--line:#e2d9cb;--accent:#a8432a;--r:16px;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1a17;--card:#26231f;--ink:#f2ece3;--soft:#bdb2a5;--line:#3d3730;--accent:#e58a6d}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font:18px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.wrap{max-width:640px;margin:0 auto;padding:12px 18px 40px}
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:6px 0 10px}
+header img{width:44px;height:44px;border-radius:12px}
+header h1{font-size:1.3em;margin:0;flex:1}
+.langs{display:flex;gap:4px}
+.langs button,.btn{min-height:48px;min-width:48px;padding:8px 14px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.lead{color:var(--soft);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:14px 0}
+details summary{cursor:pointer;min-height:48px;display:flex;align-items:center;font-weight:600}
+footer{color:var(--soft);font-size:.85em;margin-top:30px}
+footer a{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="icons/icon.svg" alt="">
+    <h1 data-t="name">App name</h1>
+    <div class="langs" role="group" aria-label="Language">
+      <button data-lang="en" lang="en">EN</button><button data-lang="de" lang="de">DE</button><button data-lang="zh" lang="zh">中文</button>
+    </div>
+  </header>
+  <p class="lead" data-t="tagline">One sentence about what this app does.</p>
+
+  <main id="app" class="card">
+    <!-- the app goes here -->
+    <p data-t="hello">Hello! This is where the app lives.</p>
+  </main>
+
+  <details class="card" id="install">
+    <summary data-t="installTitle">Put it on your home screen</summary>
+    <p data-t="installAndroid">Android (Chrome): menu ⋮ → “Install app” or “Add to Home screen”.</p>
+    <p data-t="installIphone">iPhone (Safari): Share button → “Add to Home Screen”.</p>
+    <p data-t="installOffline">After the first visit it also works without internet.</p>
+  </details>
+
+  <footer>
+    <p data-t="free">Free, no ads, no account, no tracking.</p>
+    <p><a href="https://github.com/michaelwartmann/app-template" data-t="code">Source code (MIT)</a></p>
+  </footer>
+</div>
+
+<script>
+"use strict";
+// ---- languages: start in the phone's language, remember the choice on this phone only
+const T = {
+  en: {
+    name: "App name", tagline: "One sentence about what this app does.", hello: "Hello! This is where the app lives.",
+    installTitle: "Put it on your home screen",
+    installAndroid: "Android (Chrome): menu ⋮ → “Install app” or “Add to Home screen”.",
+    installIphone: "iPhone (Safari): Share button → “Add to Home Screen”.",
+    installOffline: "After the first visit it also works without internet.",
+    free: "Free, no ads, no account, no tracking.", code: "Source code (MIT)",
+  },
+  de: {
+    name: "App-Name", tagline: "Ein Satz dazu, was diese App macht.", hello: "Hallo! Hier wohnt die App.",
+    installTitle: "Auf den Startbildschirm legen",
+    installAndroid: "Android (Chrome): Menü ⋮ → „App installieren“ oder „Zum Startbildschirm“.",
+    installIphone: "iPhone (Safari): Teilen-Knopf → „Zum Home-Bildschirm“.",
+    installOffline: "Nach dem ersten Besuch geht sie auch ohne Internet.",
+    free: "Kostenlos, ohne Werbung, ohne Konto, ohne Tracking.", code: "Quellcode (MIT)",
+  },
+  zh: {
+    name: "应用名称", tagline: "用一句话说明这个应用做什么。", hello: "你好！应用就在这里。",
+    installTitle: "添加到主屏幕",
+    installAndroid: "安卓（Chrome）：菜单 ⋮ →“安装应用”或“添加到主屏幕”。",
+    installIphone: "iPhone（Safari）：分享按钮 →“添加到主屏幕”。",
+    installOffline: "第一次打开之后，没有网络也能用。",
+    free: "免费，无广告，无需账号，不追踪。", code: "源代码（MIT）",
+  },
+};
+const store = { get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
+                set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
+function pickLang() {
+  const saved = store.get("lang"); if (saved && T[saved]) return saved;
+  for (const l of navigator.languages || [navigator.language || "en"]) { const s = l.slice(0, 2).toLowerCase(); if (T[s]) return s; }
+  return "en";
+}
+function setLang(l) {
+  document.documentElement.lang = l === "zh" ? "zh-Hans" : l;
+  document.querySelectorAll("[data-t]").forEach((el) => { const v = T[l][el.dataset.t]; if (v) el.textContent = v; });
+  document.querySelectorAll("[data-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
+  document.title = T[l].name;
+  store.set("lang", l);
+}
+document.querySelectorAll("[data-lang]").forEach((b) => b.onclick = () => setLang(b.dataset.lang));
+setLang(pickLang());
+
+// ---- offline
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+</body>
+</html>
